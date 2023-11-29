@@ -1,0 +1,34 @@
+<div class="form-array">
+    <label *ngIf="controlConfig?.label">
+        {{controlConfig.label}}
+        <span class="required-text" *ngIf="inputService.isRequired(controlConfig)">(*)</span>
+    </label>
+    <div *ngIf="controlConfig?.placeholder && formArray.length === 0">{{controlConfig.placeholder}}</div>
+    <div class="form-array-rows">
+        <ng-container *ngFor="let item of formArray.controls; let i = index">
+            <div class="repeatable-row">
+                <div class="repeateable-fields">
+                    <app-dynamic-form [formGroup]="getFormGroup(item)" [form]="form"></app-dynamic-form>
+                </div>
+    
+                <div class="repeateable-action" *ngIf=" controlConfig.childrenParams && controlConfig.childrenParams.deleteButtonDisplay == true">
+                    <button class="btn btn-sm btn-danger repeatable-btn" type="button" (click)="remove(i)"
+                        [disabled]="formArray.length === getMinRows() || controlConfig.childrenParams.deleteButtonDisabled">
+                        SUPPRIMER
+                    </button>
+                </div>
+    
+            </div>
+            <!-- <hr> -->
+        </ng-container>
+    </div>
+    <div class="repeatable-new">
+        <button class="btn btn-sm btn-primary repeatable-btn add-button" type="button" (click)="add()"
+            *ngIf="controlConfig.childrenParams && controlConfig.childrenParams.addButtonDisplay == true"
+            [disabled]="controlConfig.childrenParams.addButtonDisabled">
+            AJOUTER
+        </button>
+    </div>
+</div>
+
+<!-- [ngClass]="{'clr-col-12': controlConfig.childrenParams.deleteButtonDisplay == false, 'clr-col-11': controlConfig.childrenParams.deleteButtonDisplay == true}" -->

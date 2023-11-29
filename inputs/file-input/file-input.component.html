@@ -1,0 +1,28 @@
+<div class="file-input-container">
+	<label for="">{{controlConfig.label}}</label>
+	<ngx-dropzone class="file-input" (change)="onSelect($event)" [multiple]="controlConfig.multiple || false" [accept]="_accept">
+		<!-- <ngx-dropzone-label>{{controlConfig?.label}}</ngx-dropzone-label> -->
+		<ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+			<ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+		</ngx-dropzone-preview>
+	</ngx-dropzone>
+
+	<clr-control-error class="field-has-error" *ngIf="_control?.touched && _control?.errors?.['required']">
+		Ce champ est requis
+	</clr-control-error>
+	<clr-control-error class="field-has-error" *ngIf="_control?.touched && _control?.errors?.['min']">
+		minimum {{control.errors?.['min']?.['min']}}
+	</clr-control-error>
+	<clr-control-error class="field-has-error" *ngIf="_control?.touched && _control?.errors?.['max']">
+		maximum {{control.errors?.['max']?.['max']}}
+	</clr-control-error>
+	<clr-control-error class="field-has-error" *ngIf="_control?.touched && _control?.errors?.['minlength']">
+		minimum {{control.errors?.['minlength']?.['requiredLength']}} caractères
+	</clr-control-error>
+	<clr-control-error class="field-has-error" *ngIf="_control?.touched && _control?.errors?.['maxlength']">
+		maximum {{control.errors?.['maxlength']?.['requiredLength']}} caractères
+	</clr-control-error>
+	<clr-control-error class="field-has-error" *ngIf="_control?.touched && _control?.errors?.['pattern']">
+		Champs invalide
+	</clr-control-error>
+</div>

@@ -1,0 +1,30 @@
+<div [class]="'custom-ng-select'">
+    <div class="clr-form-control">
+        <label class="clr-control-label">
+            {{controlConfig.label}}
+            <span class="required-text" *ngIf="inputService.isRequired(controlConfig)">(*)</span>
+        </label>
+
+        <ng-select [compareWith]="compareFn" [class]="'clr-input-wrapper'" [formControl]="_control" [items]="data" bindLabel="label"
+            bindValue="value" [multiple]="controlConfig.multiple ? controlConfig.multiple : false" [virtualScroll]="true" >
+        </ng-select>
+        <!-- <ng-select [formControl]="_control" [items]="data" bindLabel="label"
+            bindValue="value" >
+        </ng-select> -->
+
+        <!-- <ng-container *ngIf="controlConfig?.multiple == undefined || controlConfig?.multiple == false">
+            <ng-select [compareWith]="compareFn" [class]="'clr-input-wrapper'" [formControl]="_control"
+                [items]="controlConfig.items" bindLabel="label" bindValue="value" [multiple]="false"
+                [virtualScroll]="true">
+            </ng-select>
+        </ng-container>
+        <ng-container *ngIf="controlConfig?.multiple  == true">
+            <ng-select [compareWith]="multipleCompareFn" [class]="'clr-input-wrapper'" [formControl]="_control"
+                [items]="controlConfig.items" bindLabel="label" bindValue="value" [multiple]="true"
+                [virtualScroll]="true">
+            </ng-select>
+        </ng-container> -->
+        <span class="error-message" *ngIf="control?.touched && control?.errors?.['required']">Ce champ est requis</span>
+    </div>
+</div>
+<!-- [compareWith]="compareFn" -->

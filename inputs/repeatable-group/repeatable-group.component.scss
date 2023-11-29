@@ -1,0 +1,35 @@
+.form-array-rows {
+    margin-bottom: 12px;
+    display: grid;
+}
+
+.repeatable-row {
+    //   overflow: hidden;
+    //   border-bottom: 1px solid #cecece;
+    padding: 7px;
+}
+
+.repeateable-fields {
+    position: relative;
+    max-width: 90%;
+    float: left;
+    width: 100%;
+}
+
+.repeateable-action {
+    position: relative;
+    max-width: 10%;
+    float: left;
+    margin-top: 2.3em;
+    //   bottom: 0;
+}
+
+.repeatable-new {
+    padding: 8px;
+}
+// button.btn.repeatable-btn {
+//   background: #191818;
+//   &:hover{
+//     background: var(--app-color-client);
+//   }
+// }
