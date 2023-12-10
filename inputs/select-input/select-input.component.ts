@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { IControl } from '../../dynamic-form/dynamic-form.component';
 import { InputService } from '../../services/input.service';
 import { HttpRequestService } from 'src/app/core/http/http-request.service';
 import { Subject, takeUntil } from 'rxjs';
-import { _response } from 'src/app/application/response/response';
+import { FORM_CONFIG, IFormConfig } from '../../contracts/contracts';
 
 @Component({
   selector: 'app-select-input',
@@ -23,7 +23,7 @@ export class SelectInputComponent implements OnInit {
   get _control() {
     return this.control as FormControl
   }
-  constructor(public inputService: InputService, private client: HttpRequestService) { }
+  constructor(public inputService: InputService, private client: HttpRequestService, @Inject(FORM_CONFIG) private formConfig: IFormConfig) { }
 
   ngOnInit(): void {
     if (this.controlConfig.items && this.controlConfig.items.length > 0) {
@@ -39,7 +39,7 @@ export class SelectInputComponent implements OnInit {
       this.client.get(this.controlConfig.remote.url)
         .pipe(takeUntil(this._destroy$))
         .subscribe((result) => {
-          const resultDatas: any[] = _response.getResponseData(result);
+          const resultDatas: any[] = this.formConfig.responseHandler(result) as unknown as any[];
           let newData: any[] = [];
           resultDatas.forEach((resultData) => {
             if (this.controlConfig.remote) {

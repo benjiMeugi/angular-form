@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { TextInputComponent } from './inputs/text-input/text-input.component';
@@ -18,6 +18,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { RepeatableGroupComponent } from './inputs/repeatable-group/repeatable-group.component';
 import { SubGroupComponent } from './inputs/sub-group/sub-group.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { FORM_CONFIG, IFormConfig } from './contracts/contracts';
 
 
 @NgModule({
@@ -50,4 +51,13 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     NumberInputComponent,
   ]
 })
-export class FormModuleModule { }
+export class FormModuleModule {
+  static forRoot(config: IFormConfig): ModuleWithProviders<FormModuleModule> {
+    return {
+      ngModule: FormModuleModule,
+      providers: [
+        { provide: FORM_CONFIG, useValue: config }
+      ]
+    };
+  }
+}
